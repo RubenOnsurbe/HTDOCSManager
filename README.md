@@ -14,9 +14,7 @@ HTDocs Manager es una aplicación de escritorio desarrollada con Electron para g
 
 ## 📥 Descarga
 
-Puedes descargar el instalador `.exe` directamente desde la sección de [Releases](LINK_AQUI).  
-
-> 💡 Sustituye `LINK_AQUI` por la URL real de tu release en GitHub.
+Puedes descargar el instalador `.exe` directamente desde la sección de [Releases](https://github.com/RubenOnsurbe/HTDOCSManager/releases/tag/V.1). 
 
 ## 🛠️ Tecnologías utilizadas
 
