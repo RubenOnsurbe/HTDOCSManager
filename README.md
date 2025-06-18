@@ -8,6 +8,9 @@ HTDocs Manager es una aplicación de escritorio desarrollada con Electron para g
 ✅ Te ahorra tener que mover carpetas manualmente cada vez que quieres trabajar en un proyecto nuevo.  
 ✅ Compatible con **XAMPP** y **WAMP**.  
 ✅ Muy fácil de usar:  
+
+## 🔧 INSTRUCCIONES 
+
 - Al abrir la app, te pide seleccionar la carpeta `htdocs` de XAMPP o WAMP.  
 - Después, puedes crear un proyecto y elegir la carpeta de archivos de ese proyecto.  
 - La app se encarga de copiarlo automáticamente en `htdocs` para que lo tengas listo para trabajar.
