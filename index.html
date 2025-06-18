@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HTDocs Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/fluent.min.css">
+    <style>
+        /* Improved spacing and layout */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 30px;
+            /* Increased padding */
+            line-height: 1.6;
+            /* Better text readability */
+        }
+
+        .container {
+            max-width: 900px;
+            /* Slightly wider container */
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            /* More internal padding */
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0078d4;
+            margin-bottom: 30px;
+            font-size: 28px;
+            /* Larger title */
+            font-weight: 600;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 10px;
+            margin-bottom: 25px;
+            font-size: 22px;
+            color: #333;
+        }
+
+        /* Form elements with better spacing */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        input {
+            width: 75%;
+            padding: 12px;
+            /* Larger input fields */
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        button {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            /* Larger buttons */
+            margin-top: 10px;
+            margin-left: 8px;
+            /* Space between adjacent buttons */
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #005a9e;
+        }
+
+        /* VS Code SVG icon styling */
+        .vscode-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+        }
+
+        /* Make sure the SVG fits nicely in the button */
+        .vscode-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        /* Tab improvements */
+        .tabs {
+            display: flex;
+            cursor: pointer;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 15px;
+            text-align: center;
+            background: transparent;
+            margin-right: 8px;
+            border-radius: 8px 8px 0 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+
+        .tab:hover {
+            background: rgba(0, 120, 212, 0.05);
+            color: #0078d4;
+        }
+
+        .tab.active {
+            background: white;
+            font-weight: 600;
+            color: #0078d4;
+            border-bottom: 3px solid #0078d4;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 0 0 8px 8px;
+            background: white;
+            margin-bottom: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Feature cards with more spacing */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+            /* Gap between cards */
+        }
+
+        .feature-card {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 0;
+            flex: 1 1 calc(50% - 20px);
+            /* Account for the gap */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            /* Larger icons */
+            margin-bottom: 15px;
+            color: #0078d4;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        /* Project cards with better spacing */
+        .projects-list {
+            margin-top: 25px;
+            padding: 0;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            /* Space between project cards */
+        }
+
+        .project-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 0;
+            /* Using gap instead */
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 5px solid #0078d4;
+        }
+
+        .project-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0078d4;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .project-name i {
+            margin-right: 12px;
+            color: #0078d4;
+            font-size: 22px;
+        }
+
+        .project-path {
+            color: #666;
+            font-size: 15px;
+            margin-left: 34px;
+            /* Aligned with text after icon */
+        }
+
+        .project-path i {
+            margin-right: 10px;
+            color: #777;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 12px;
+            /* More space between buttons */
+        }
+
+        .action-btn {
+            width: 45px;
+            /* Slightly larger buttons */
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            /* Larger icons */
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .deploy-btn {
+            background-color: #0078d4;
+        }
+
+        .deploy-btn:hover {
+            background-color: #005a9e;
+        }
+
+        .edit-btn {
+            background-color: #ff9800;
+        }
+
+        .edit-btn:hover {
+            background-color: #e68a00;
+        }
+
+        .vscode-btn {
+            background-color: #007acc;
+        }
+
+        .vscode-btn:hover {
+            background-color: #005b99;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .empty-projects {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-projects i {
+            font-size: 50px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .empty-projects p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        /* Modal improvements */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            backdrop-filter: blur(3px);
+            /* Blur background */
+        }
+
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            animation: modalEnter 0.3s ease-out;
+        }
+
+        @keyframes modalEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 22px;
+            color: #0078d4;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #f44336;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Inline editing styles */
+        .project-item.editing {
+            background-color: #f8f9fa;
+            border-left: 5px solid #ff9800;
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+
+        .project-edit-form {
+            flex: 1;
+            padding-right: 20px;
+            /* Space between form and buttons */
+        }
+
+        .edit-field {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .edit-field:focus {
+            border-color: #0078d4;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .container {
+                max-width: 95%;
+                padding: 20px;
+            }
+
+            .feature-card {
+                flex: 1 1 calc(50% - 15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .feature-card {
+                flex: 1 1 100%;
+            }
+
+            .features {
+                gap: 15px;
+            }
+
+            .project-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .project-info {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            .project-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            button {
+                margin-left: 0;
+                align-self: flex-start;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .buttons button {
+                width: 100%;
+            }
+
+            .modal {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .tab {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+
+            .tab-content {
+                padding: 15px;
+            }
+
+            .project-name {
+                font-size: 18px;
+            }
+
+            .project-path {
+                font-size: 14px;
+                margin-left: 0;
+            }
+
+            .action-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            /* Improve form elements */
+            .form-group label {
+                margin-bottom: 5px;
+            }
+
+            input {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            /* Fix the floating action button position */
+            .add-project-btn {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Ensure the add-project button has a proper style */
+        .add-project-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #0078d4;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 900;
+            margin: 0;
+        }
+
+        .add-project-btn:hover {
+            transform: scale(1.1);
+            background-color: #0065b3;
+        }
+
+        /* Toast notification responsive improvements */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 90%;
+        }
+
+        .toast {
+            background-color: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 15px;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+
+        @media (max-width: 480px) {
+            .toast-container {
+                right: 10px;
+                left: 10px;
+                top: 10px;
+            }
+
+            .toast {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>HTDocs Manager</h1>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="home">Inicio</div>
+            <div class="tab" data-tab="saved">Proyectos</div>
+        </div>
+
+        <div id="home-tab" class="tab-content active">
+            <h2><i class="fas fa-cogs"></i> Configuración</h2>
+
+            <div class="form-group">
+                <label for="wamp-path"><i class="fas fa-folder"></i> Directorio de XAMPP/WAMP:</label>
+                <input type="text" id="wamp-path" placeholder="Ej: C:\xampp o C:\wamp64">
+                <button onclick="selectWampDir()" id="wamp-dir-button"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+
+            <div class="buttons">
+                <button onclick="saveXamppPath()"><i class="fas fa-save"></i> Guardar Ruta</button>
+                <button class="secondary" onclick="backupXamppProjects()"><i class="fas fa-download"></i> Respaldar
+                    Proyectos
+                </button>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                    <h3 class="feature-title">Despliegue Rápido</h3>
+                    <p class="feature-description">Copia proyectos a tu servidor local con un solo clic para pruebas
+                        inmediatas.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-save"></i></div>
+                    <h3 class="feature-title">Proyectos Guardados</h3>
+                    <p class="feature-description">Guarda tus proyectos favoritos para desplegarlos cuando los
+                        necesites.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
+                    <h3 class="feature-title">Integración con VS Code</h3>
+                    <p class="feature-description">Abre tus proyectos directamente en Visual Studio Code.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3 class="feature-title">Respaldo de Proyectos</h3>
+                    <p class="feature-description">Crea copias de seguridad de los proyectos en tu servidor XAMPP/WAMP.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="saved-tab" class="tab-content">
+            <h2><i class="fas fa-folder-open"></i> Proyectos Guardados</h2>
+            <div id="projects-list" class="projects-list">
+                <p><i class="fas fa-spinner fa-spin"></i> Cargando proyectos guardados...</p>
+            </div>
+
+            <button class="add-project-btn" onclick="showAddProjectModal()" title="Añadir nuevo proyecto">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Add Project Modal -->
+    <div id="add-project-modal" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-folder-plus"></i> Añadir Nuevo Proyecto</h3>
+                <button class="modal-close" onclick="closeAddProjectModal()">&times;</button>
+            </div>
+
+            <div class="form-group">
+                <label for="modal-project-path"><i class="fas fa-folder-open"></i> Directorio del Proyecto:</label>
+                <input type="text" id="modal-project-path" placeholder="Selecciona el directorio del proyecto">
+                <button onclick="selectModalProjectDir()"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+
+            <div class="form-group">
+                <label for="modal-project-name"><i class="fas fa-tag"></i> Nombre del Proyecto:</label>
+                <input type="text" id="modal-project-name"
+                    placeholder="Deja en blanco para usar el nombre de la carpeta">
+            </div>
+
+            <div class="modal-footer">
+                <button class="secondary" onclick="closeAddProjectModal()"><i class="fas fa-times"></i>
+                    Cancelar</button>
+                <button onclick="saveNewProject()"><i class="fas fa-save"></i> Guardar Proyecto</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="renderer.js"></script>
+</body>
+
+</html>

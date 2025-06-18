@@ -1,0 +1,18 @@
+appId: com.yourname.htdocsmanager
+productName: HTDocs Manager
+directories:
+  output: dist
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: HTDocsManager.ico
+nsis:
+  oneClick: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  installerIcon: HTDocsManager.ico
+  uninstallerIcon: HTDocsManager.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
