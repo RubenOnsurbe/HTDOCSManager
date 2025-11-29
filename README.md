@@ -12,6 +12,7 @@ HTDocs Manager es una aplicación de escritorio desarrollada con Electron para g
 - Incluye controles para revalidar, exportar o importar la configuración y los proyectos guardados.
 - Compatible con **XAMPP** y **WAMP**.
 - Interfaz optimizada para teclado y accesible, con avisos toast más visibles y posicionados a la izquierda.
+- Selector de tema claro, oscuro o sistema con transición fluida entre modos.
 
 ## 🔧 Instrucciones de uso
 
@@ -36,9 +37,10 @@ Descarga el instalador `.exe` desde la sección de [Releases](https://github.com
 - Exportación e importación segura de configuración y lista de proyectos con copias de respaldo.
 - Mejoras en la interfaz: drag & drop refinado, controles de revalidación y estado, búsqueda ampliada y gestión de grupos.
 - Accesos rápidos para abrir la carpeta real del proyecto directamente desde la lista.
-- Banner en la pantalla principal que comprueba la versión del README publicado en GitHub para avisar de actualizaciones disponibles.
+- Banner en la pantalla principal que comprueba y compara la versión remota del README en GitHub para avisar si hay una actualización.
 - Toasts reposicionados al lateral izquierdo, con mayor contraste, animaciones y variantes por tipo.
 - Limpieza y saneamiento de datos en las rutas antes de persistir para evitar inconsistencias.
+- Conmutador de tema claro/oscuro con opción de seguir el modo del sistema.
 
 ## 📄 Licencia
 
