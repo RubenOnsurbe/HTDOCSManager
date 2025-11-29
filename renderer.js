@@ -240,9 +240,22 @@ function initThemeToggle() {
 
 async function fetchRemoteVersionInfo() {
     const content = await ipcRenderer.invoke('fetch-remote-readme');
-    const match = content.match(/Versi[óo]n\s+actual[^\n]*?V?\s*([0-9]+(?:\.[0-9]+)*)/i);
+    const normalizedLines = content.split(/\r?\n/);
+    const versionLine = normalizedLines.find((line) => {
+        if (!line) {
+            return false;
+        }
+        const lower = line.toLowerCase();
+        return lower.includes('versión actual') || lower.includes('version actual');
+    });
+
+    if (!versionLine) {
+        throw new Error('No se encontró la línea de versión en el README.');
+    }
+
+    const match = versionLine.match(/([0-9]+(?:\.[0-9]+)*)/);
     if (!match) {
-        throw new Error('No se encontró la versión remota en el README.');
+        throw new Error('No se pudo extraer el número de versión del README.');
     }
 
     const display = `V${match[1]}`;

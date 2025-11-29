@@ -15,13 +15,16 @@ ipcMain.handle('get-app-version', () => {
 });
 
 ipcMain.handle('fetch-remote-readme', async () => {
-    const targetUrl = 'https://raw.githubusercontent.com/RubenOnsurbe/HTDOCSManager/main/README.md';
+    const targetUrl = new URL('https://raw.githubusercontent.com/RubenOnsurbe/HTDOCSManager/main/README.md');
+    targetUrl.searchParams.set('ts', Date.now().toString());
 
     return new Promise((resolve, reject) => {
         try {
             const request = https.get(targetUrl, {
                 headers: {
-                    'User-Agent': 'HTDocsManager/2.0 (+https://github.com/RubenOnsurbe/HTDOCSManager)'
+                    'User-Agent': 'HTDocsManager/2.0 (+https://github.com/RubenOnsurbe/HTDOCSManager)',
+                    'Cache-Control': 'no-cache',
+                    Pragma: 'no-cache'
                 }
             }, (response) => {
                 const { statusCode } = response;
