@@ -9,7 +9,7 @@
         "build": "electron-builder",
         "dist": "electron-builder --win --x64"
     },
-    "author": "Your Name",
+    "author": "RDEV",
     "license": "MIT",
     "devDependencies": {
         "electron": "^29.4.0",
