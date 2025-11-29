@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs-extra');
+const https = require('https');
 
 let mainWindow;
 
@@ -11,6 +12,40 @@ ipcMain.handle('get-app-version', () => {
         console.error('No se pudo obtener la versión de la aplicación:', error);
         return null;
     }
+});
+
+ipcMain.handle('fetch-remote-readme', async () => {
+    const targetUrl = 'https://raw.githubusercontent.com/RubenOnsurbe/HTDOCSManager/main/README.md';
+
+    return new Promise((resolve, reject) => {
+        try {
+            const request = https.get(targetUrl, {
+                headers: {
+                    'User-Agent': 'HTDocsManager/2.0 (+https://github.com/RubenOnsurbe/HTDOCSManager)'
+                }
+            }, (response) => {
+                const { statusCode } = response;
+                if (statusCode !== 200) {
+                    response.resume();
+                    reject(new Error(`Respuesta HTTP inesperada: ${statusCode}`));
+                    return;
+                }
+
+                let rawData = '';
+                response.setEncoding('utf8');
+                response.on('data', (chunk) => {
+                    rawData += chunk;
+                });
+                response.on('end', () => resolve(rawData));
+            });
+
+            request.on('error', (error) => {
+                reject(error);
+            });
+        } catch (error) {
+            reject(error);
+        }
+    });
 });
 
 const DEFAULT_CONFIG = Object.freeze({

@@ -111,7 +111,6 @@ function formatVersionDisplay(rawVersion) {
 }
 
 const DEFAULT_LOCAL_VERSION_DISPLAY = 'V2.0';
-const REMOTE_README_URL = 'https://raw.githubusercontent.com/RubenOnsurbe/HTDOCSManager/main/README.md';
 const GITHUB_RELEASES_URL = 'https://github.com/RubenOnsurbe/HTDOCSManager/releases';
 const VersionBannerStates = Object.freeze({
     checking: {
@@ -240,12 +239,7 @@ function initThemeToggle() {
 }
 
 async function fetchRemoteVersionInfo() {
-    const response = await fetch(REMOTE_README_URL, { cache: 'no-store' });
-    if (!response.ok) {
-        throw new Error(`Solicitud fallida con estado ${response.status}`);
-    }
-
-    const content = await response.text();
+    const content = await ipcRenderer.invoke('fetch-remote-readme');
     const match = content.match(/Versi[óo]n\s+actual[^\n]*?V?\s*([0-9]+(?:\.[0-9]+)*)/i);
     if (!match) {
         throw new Error('No se encontró la versión remota en el README.');
