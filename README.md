@@ -4,7 +4,7 @@ HTDocs Manager es una aplicación de escritorio desarrollada con Electron para g
 
 ## 🌟 Características principales
 
-**Versión actual:** V2.0
+**Versión actual:** V3.0
 
 - Centraliza todos tus proyectos web y los sincroniza con la carpeta `htdocs` o equivalente.
 - Permite reordenar proyectos y agruparlos con una interfaz drag & drop mejorada.
